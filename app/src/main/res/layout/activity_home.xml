@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        android:id="@+id/Host_Fragment2"
+        app:navGraph="@navigation/nav_graph_2"
+        />
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu="@menu/drawer_menu"
+        app:headerLayout="@layout/header_layout"
+        android:id="@+id/nv"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
+        android:background="#000000"
+        app:itemIconTint="#bcb"
+        app:itemTextColor="#bcb"
+        />
+
+</androidx.drawerlayout.widget.DrawerLayout>
