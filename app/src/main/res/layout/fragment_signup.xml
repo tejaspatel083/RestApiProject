@@ -1,14 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignupFragment">
+    tools:context=".SignupFragment"
+    android:background="@drawable/background">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="50sp"
+        android:layout_marginTop="40dp"/>
 
-</FrameLayout>
+    <EditText
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/register_name"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/name"
+        android:textSize="25sp"
+        android:layout_marginTop="150dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:maxLength="25"
+        android:drawableLeft="@drawable/name"
+        />
+
+    <EditText
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/register_email"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/email"
+        android:textSize="25sp"
+        android:layout_below="@id/register_name"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:maxLength="25"
+        android:drawableLeft="@drawable/email"
+        />
+
+    <EditText
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/register_DOB"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/birthdate"
+        android:textSize="25sp"
+        android:layout_below="@id/register_email"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:maxLength="25"
+        android:drawableLeft="@drawable/date"
+        />
+
+    <EditText
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/register_password"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/password"
+        android:textSize="25sp"
+        android:layout_below="@id/register_DOB"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:maxLength="25"
+        android:drawableLeft="@drawable/password"
+        />
+
+    <EditText
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/register_re_enter_password"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/password"
+        android:textSize="25sp"
+        android:layout_below="@id/register_password"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:maxLength="25"
+        android:drawableLeft="@drawable/password"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/register_button"
+        android:text="@string/register"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/register_re_enter_password"
+        android:layout_marginTop="40dp"/>
+
+</RelativeLayout>
