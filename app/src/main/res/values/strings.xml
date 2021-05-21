@@ -3,4 +3,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="loginEMail">Enter Your Email</string>
+    <string name="loginPass">Enter Your Password</string>
+    <string name="loginButton">Login</string>
+    <string name="Register">Dont Have an account?<u>Register</u></string>
+    <string name="forgetID">Forgot password?</string>
 </resources>
