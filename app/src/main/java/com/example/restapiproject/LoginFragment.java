@@ -72,6 +72,12 @@ public class LoginFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
 
+        if (firebaseAuth.getCurrentUser() != null)
+        {
+            Intent intent = new Intent(getActivity(), HomeActivity.class);
+            startActivity(intent);
+        }
+
 
         v1.setOnClickListener(new View.OnClickListener() {
             @Override
