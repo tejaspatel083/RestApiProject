@@ -123,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (doc.exists()) {
                         Log.d("DashboardFragment", doc.getData().toString());
 
-                        textView.setText("Welcome\n" + doc.get("name"));
+                        textView.setText("Welcome " + doc.get("name"));
 
 
                     }

@@ -24,9 +24,9 @@
         android:id="@+id/nv"
         android:fitsSystemWindows="true"
         android:layout_gravity="start"
-        android:background="#000000"
-        app:itemIconTint="#bcb"
-        app:itemTextColor="#bcb"
+        android:background="#bcb"
+        app:itemIconTint="#000000"
+        app:itemTextColor="#000000"
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>
