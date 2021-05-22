@@ -21,4 +21,9 @@
     <string name="Re_password">Re-Enter Password</string>
 
 
+    <!--Forget password Fragment-->
+    <string name="forget">Forget Password</string>
+    <string name="submit">Submit</string>
+
+
 </resources>
