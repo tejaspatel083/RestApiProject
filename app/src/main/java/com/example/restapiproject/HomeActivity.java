@@ -10,12 +10,21 @@ import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -24,6 +33,9 @@ public class HomeActivity extends AppCompatActivity {
     private NavigationView navi;
     private NavController navController;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore fireStore;
+    private FirebaseUser currentUser;
+    private TextView textView;
 
 
     @Override
@@ -40,6 +52,13 @@ public class HomeActivity extends AppCompatActivity {
         navController = Navigation.findNavController(HomeActivity.this,R.id.Host_Fragment2);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        fireStore = FirebaseFirestore.getInstance();
+
+
+        View headerView = navi.getHeaderView(0);
+        textView = headerView.findViewById(R.id.headerTextView);
+
+        getUserName();
 
         dl.addDrawerListener(t);
         t.syncState();
@@ -87,6 +106,31 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getUserName() {
+
+        currentUser = firebaseAuth.getCurrentUser();
+
+        DocumentReference docRef = fireStore.collection("User Profile Information").document(currentUser.getUid());
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+
+                    if (doc.exists()) {
+                        Log.d("DashboardFragment", doc.getData().toString());
+
+                        textView.setText("Welcome\n" + doc.get("name"));
+
+
+                    }
+
+                }
+            }
+        });
     }
 
 
