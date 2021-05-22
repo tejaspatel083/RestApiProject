@@ -5,25 +5,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <!--Login Fragment-->
-    <string name="loginEMail">Enter Your Email</string>
-    <string name="loginPass">Enter Your Password</string>
-    <string name="loginButton">Login</string>
-    <string name="RegisterTextview">New User?<u>Register here</u></string>
-    <string name="forgetID"><u>Forgot password?</u></string>
+    <string name="pwd"><u>Forgot your Password?</u></string>
+    <string name="signup">New here? <u>Sign Up instead</u></string>
+    <string name="login">Do you have an account? <u><b>Log in</b></u></string>
 
-    <!--Register  Fragment-->
-    <string name="register">Register</string>
-    <string name="name">Enter Name</string>
-    <string name="email">Enter Email</string>
-    <string name="birthdate">Enter Birth-date</string>
-    <string name="password">Enter Password</string>
-    <string name="Re_password">Re-Enter Password</string>
-
-
-    <!--Forget password Fragment-->
-    <string name="forget">Forget Password</string>
-    <string name="submit">Submit</string>
+    <string name="nav_drawer_open">Open Navigation Drawer</string>
+    <string name="nav_drawer_close">Close Navigation Drawer</string>
 
 
 </resources>
