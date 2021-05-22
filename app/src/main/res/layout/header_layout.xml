@@ -10,7 +10,8 @@
         android:id="@+id/headerTextView"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:textSize="40sp"
+        android:textSize="30sp"
+        android:textColor="#bcb"
         android:textStyle="bold"/>
 
 </RelativeLayout>
