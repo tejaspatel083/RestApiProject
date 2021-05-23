@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.restapiproject.Models.Data;
 import com.example.restapiproject.Models.Datum;
 import com.example.restapiproject.Models.Model;
 import com.example.restapiproject.Models.PersonList;
@@ -26,6 +27,7 @@ import com.example.restapiproject.utils.APIClient;
 import com.example.restapiproject.utils.APIInterface;
 import com.example.restapiproject.utils.PaginationListner;
 import com.example.restapiproject.utils.PersonRecyclerViewAdapter;
+import com.example.restapiproject.utils.RecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -67,6 +69,7 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
 
     APIInterface apiInterface;
 
+    private ArrayList<Data> arrayList;
 
 
 
@@ -99,6 +102,7 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
         getActivity().setTitle("Dashboard");
 
         recyclerView = view.findViewById(R.id.recyclerView);
+        arrayList = new ArrayList<>();
 
 
         NavigationView navigationView = getActivity().findViewById(R.id.nv);
@@ -150,12 +154,18 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
 
                 ArrayList<Model.data> data = response.body().getData();
 
+
                 for (Model.data data1 : data)
                 {
 
                     Log.e("Dashboard Fragment",""+data1.getEmail());
+                    arrayList.add(new Data(data1.getFirst_name(),data1.getEmail()));
 
                 }
+
+                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList);
+                recyclerView.setAdapter(recyclerAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             }
 
             @Override
