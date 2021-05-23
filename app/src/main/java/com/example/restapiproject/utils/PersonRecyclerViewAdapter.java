@@ -59,6 +59,41 @@ public class PersonRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHold
         return personList == null ? 0 : personList.size();
     }
 
+    public void addItems(List<Datum> movies) {
+        personList.addAll(movies);
+        notifyDataSetChanged();
+    }
+
+    public void addLoading() {
+        isLoaderVisible = true;
+        personList.add(new Datum());
+        notifyItemInserted(personList.size() - 1);
+    }
+
+    public void removeLoading() {
+        isLoaderVisible = false;
+        int position = personList.size() - 1;
+        Datum movie = getItem(position);
+
+        if (movie != null) {
+            personList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear()
+    {
+        personList.clear();
+        notifyDataSetChanged();
+    }
+
+
+
+    public Datum getItem(int position)
+    {
+        return personList.get(position);
+    }
+
 
 
     public class ProgressHolder extends BaseViewHolder

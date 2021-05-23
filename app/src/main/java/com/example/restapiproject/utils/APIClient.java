@@ -7,9 +7,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
 
-    private static Retrofit retrofit = null;
+    private static Retrofit retrofit;
 
-    public static Retrofit getClient()
+    public static Retrofit getRetrofitInstance()
     {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -17,7 +17,7 @@ public class APIClient {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://reqres.in/api/")
+                .baseUrl("https://reqres.in/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
