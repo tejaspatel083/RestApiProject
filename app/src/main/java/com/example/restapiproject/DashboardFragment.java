@@ -159,11 +159,11 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
                 {
 
                     Log.e("Dashboard Fragment",""+data1.getEmail());
-                    arrayList.add(new Data(data1.getFirst_name(),data1.getEmail()));
+                    arrayList.add(new Data(data1.getFirst_name(),data1.getEmail(),data1.getAvatar()));
 
                 }
 
-                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList);
+                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList,getContext());
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             }

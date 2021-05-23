@@ -148,7 +148,7 @@ public class PersonRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHold
             super.onBind(position);
 
             Datum datum = personList.get(position);
-            Glide.with(itemView).load(datum.getAvatar()).fitCenter().into(pImage);
+            //Glide.with(itemView).load(datum.getAvatar()).fitCenter().into(pImage);
 
             pName.setText(datum.getFirstName());
             itemView.setOnClickListener(this);
