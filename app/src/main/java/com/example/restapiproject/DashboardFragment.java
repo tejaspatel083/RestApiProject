@@ -49,6 +49,11 @@ public class DashboardFragment extends Fragment {
 
     APIInterface apiInterface;
 
+    private int currentPage = 1;
+    private int totalPage = 2;
+
+    private boolean isLastPage = false;
+
     private ArrayList<Data> arrayList;
 
 
@@ -118,9 +123,17 @@ public class DashboardFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+
+        makeApiCall();
+
+    }
+
+    private void makeApiCall() {
+
+
         apiInterface = APIClient.getRetrofitInstance().create(APIInterface.class);
 
-        Call<Model> call = apiInterface.getAllData();
+        Call<Model> call = apiInterface.getAllData(String.valueOf(currentPage));
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
@@ -141,6 +154,17 @@ public class DashboardFragment extends Fragment {
                 RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList,getContext());
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerAdapter.notifyDataSetChanged();
+
+                if (currentPage<=totalPage)
+                {
+                    currentPage++;
+                    makeApiCall();
+
+                }
+                else {
+                    isLastPage = true;
+                }
             }
 
             @Override

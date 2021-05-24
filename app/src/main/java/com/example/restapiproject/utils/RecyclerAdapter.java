@@ -63,6 +63,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return arrayList.size();
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
