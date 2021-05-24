@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.restapiproject.Models.Data;
 import com.example.restapiproject.R;
 import com.squareup.picasso.Picasso;
@@ -47,11 +48,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Data data = arrayList.get(position);
         holder.title.setText(data.getTitle());
         holder.message.setText(data.getMessage());
-//        holder.img.setImageResource(Integer.parseInt(data.getImage()));
+//      holder.img.setImageResource(Integer.parseInt(data.getImage()));
 
-        Picasso.with(context)
-            .load(data.getImage())
-            .into(holder.img);
+        //Picasso.with(context).load(data.getImage()).into(holder.img);
+
+        Glide.with(context).load(data.getImage()).fitCenter()
+                .into(holder.img);
+
 
     }
 

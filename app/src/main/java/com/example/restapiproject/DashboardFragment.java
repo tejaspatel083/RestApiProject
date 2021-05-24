@@ -1,7 +1,5 @@
 package com.example.restapiproject;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,14 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.restapiproject.Models.Data;
-import com.example.restapiproject.Models.Datum;
 import com.example.restapiproject.Models.Model;
-import com.example.restapiproject.Models.PersonList;
-import com.example.restapiproject.Models.UserInfo;
 import com.example.restapiproject.utils.APIClient;
 import com.example.restapiproject.utils.APIInterface;
-import com.example.restapiproject.utils.PaginationListner;
-import com.example.restapiproject.utils.PersonRecyclerViewAdapter;
 import com.example.restapiproject.utils.RecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,9 +37,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.restapiproject.utils.PaginationListner.PAGE_START;
 
-public class DashboardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, PersonRecyclerViewAdapter.OnRecycleClickListner {
+public class DashboardFragment extends Fragment {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -54,18 +46,6 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
     TextView textView;
 
     RecyclerView recyclerView;
-
-    SwipeRefreshLayout swipeRefreshLayout;
-
-
-    private PersonRecyclerViewAdapter adapter;
-
-    private int currentPage = PAGE_START;
-
-    private boolean isLastPage = false;
-    private int totalPage = 50;
-    private boolean isLoading = false;
-    List<Datum> myMovieList;
 
     APIInterface apiInterface;
 
@@ -138,11 +118,6 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new PersonRecyclerViewAdapter(new ArrayList<>(),(PersonRecyclerViewAdapter.OnRecycleClickListner)this);
-        recyclerView.setAdapter(adapter);
-
-        //makeApiCall();
-
         apiInterface = APIClient.getRetrofitInstance().create(APIInterface.class);
 
         Call<Model> call = apiInterface.getAllData();
@@ -178,91 +153,6 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
         });
 
 
-        recyclerView.addOnScrollListener(new PaginationListner(layoutManager) {
-            @Override
-            protected void loadMoreItems() {
-
-                isLoading = true;
-                currentPage++;
-               // makeApiCall();
-
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return isLastPage;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return isLoading;
-            }
-        });
-
     }
 
-//    public void makeApiCall()
-//    {
-//        apiInterface = APIClient.getRetrofitInstance().create(APIInterface.class);
-//
-//        //Call<PersonList> call = apiInterface.getAllData();
-//        call.enqueue(new Callback<PersonList>() {
-//
-//            @Override
-//            public void onResponse(Call<PersonList> call, Response<PersonList> response) {
-//
-//                Log.d("Dashboard Fragment",""+response.body());
-//
-//                PersonList personList = response.body();
-//                //Data data = movieList.data;
-//                List<Datum> movies = personList.data;
-//                myMovieList = movies;
-//
-//                Log.d("Dashboard Fragment","Movie Size"+movies.size());
-//                Log.d("Dashboard Fragment","First Movie"+movies.get(0).firstName);
-//
-//
-//                if (currentPage != PAGE_START) adapter.removeLoading();
-//
-//                adapter.addItems(movies);
-//                //swipeRefreshLayout.setRefreshing(false);
-//
-//                if (currentPage<totalPage)
-//                {
-//                    adapter.addLoading();
-//                }
-//                else {
-//                    isLastPage = true;
-//                }
-//                isLoading = false;
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<PersonList> call, Throwable t) {
-//
-//                call.cancel();
-//                Log.d("Dashboard Fragment",""+t.getMessage());
-//
-//            }
-//        });
-//    }
-
-
-    @Override
-    public void onRefresh() {
-
-
-        currentPage = PAGE_START;
-        isLastPage = false;
-        adapter.clear();
-       // makeApiCall();
-    }
-
-    @Override
-    public void onPersonClick(Datum datum) {
-
-        Toast.makeText(getActivity().getApplicationContext(),datum.getFirstName(),Toast.LENGTH_LONG).show();
-
-    }
 }
