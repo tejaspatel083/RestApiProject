@@ -151,7 +151,14 @@ public class DashboardFragment extends Fragment {
 
                 }
 
-                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList,getContext());
+                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
+                    @Override
+                    public void onItemClick(Data data) {
+
+                        showToast(data.getMessage());
+
+                    }
+                });
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerAdapter.notifyDataSetChanged();
@@ -177,6 +184,11 @@ public class DashboardFragment extends Fragment {
         });
 
 
+    }
+
+    private void showToast(String message)
+    {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +21,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     private ArrayList<Data> arrayList;
     private Context context;
+    private ItemClickListner mItemClickListener;
 
 
 
-    public RecyclerAdapter(ArrayList<Data> arrayList, Context context) {
+    public RecyclerAdapter(ArrayList<Data> arrayList, Context context,ItemClickListner itemClickListener) {
         this.arrayList = arrayList;
         this.context = context;
+        this.mItemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -41,12 +44,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        // Just as an example, return 0 or 2 depending on position
-        // Note that unlike in ListView adapters, types don't have to be contiguous
-        return position % 2 * 2;
-    }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -62,6 +59,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Glide.with(context).load(data.getImage()).fitCenter()
                 .into(holder.img);
 
+        holder.itemView.setOnClickListener(v -> {
+            mItemClickListener.onItemClick(arrayList.get(position));
+        });
 
     }
 
@@ -87,6 +87,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
         }
+    }
+
+
+    public interface ItemClickListner{
+        void onItemClick(Data data);
     }
 
 }

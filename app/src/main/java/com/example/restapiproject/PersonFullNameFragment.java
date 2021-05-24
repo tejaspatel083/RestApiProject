@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.restapiproject.Models.Data;
 import com.example.restapiproject.Models.Model;
@@ -112,7 +113,14 @@ public class PersonFullNameFragment extends Fragment {
 
                 }
 
-                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList,getContext());
+                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
+                    @Override
+                    public void onItemClick(Data data) {
+
+                        showToast(data.getTitle()+" "+data.getMessage());
+
+                    }
+                });
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerAdapter.notifyDataSetChanged();
@@ -136,5 +144,10 @@ public class PersonFullNameFragment extends Fragment {
 
             }
         });
+    }
+
+    private void showToast(String message)
+    {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }
