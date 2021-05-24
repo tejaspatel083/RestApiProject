@@ -9,6 +9,13 @@
     <string name="signup">New here? <u>Sign Up instead</u></string>
     <string name="login">Do you have an account? <u><b>Log in</b></u></string>
 
+    <string name="pname"><b>Person Name</b></string>
+    <string name="pemail"><b>Email</b></string>
+    <string name="fname"><b>FName: </b></string>
+    <string name="lname"><b>LName: </b></string>
+
+
+
     <string name="nav_drawer_open">Open Navigation Drawer</string>
     <string name="nav_drawer_close">Close Navigation Drawer</string>
 

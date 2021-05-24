@@ -7,15 +7,17 @@ public class Data {
     public Data() {
     }
 
+
+
     public Data(String title, String message, String image) {
         this.title = title;
         this.message = message;
         this.image = image;
     }
 
-    public Data(String title, String message) {
+    public Data(String title, String image) {
         this.title = title;
-        this.message = message;
+        this.image = image;
     }
 
     public String getTitle() {

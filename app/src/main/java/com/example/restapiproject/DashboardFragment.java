@@ -147,7 +147,7 @@ public class DashboardFragment extends Fragment {
                 {
 
                     Log.e("Person Name",""+data1.getFirst_name());
-                    arrayList.add(new Data(data1.getFirst_name(),data1.getAvatar()));
+                    arrayList.add(new Data(getString(R.string.pname),data1.getFirst_name(),data1.getAvatar()));
 
                 }
 

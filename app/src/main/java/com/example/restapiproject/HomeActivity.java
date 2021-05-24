@@ -81,6 +81,17 @@ public class HomeActivity extends AppCompatActivity {
                         break;
 
 
+                    case R.id.Fullname :
+
+                        navController.navigate(R.id.personFullNameFragment);
+                        break;
+
+                    case R.id.Email :
+
+                        navController.navigate(R.id.personEmailFragment);
+                        break;
+
+
                     case R.id.Logout :
 
                         Toast toast = Toast.makeText(HomeActivity.this,"Logged out",Toast.LENGTH_LONG);

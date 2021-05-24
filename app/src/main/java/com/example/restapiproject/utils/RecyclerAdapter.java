@@ -32,20 +32,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View inflate = layoutInflater.inflate(R.layout.recycleitem1,null);
+        LayoutInflater layoutInflater1 = LayoutInflater.from(parent.getContext());
+        View inflate1 = layoutInflater1.inflate(R.layout.recycleitem1,null);
 
-        ViewHolder viewHolder = new ViewHolder(inflate);
+        ViewHolder viewHolder1 = new ViewHolder(inflate1);
 
-        return viewHolder;
+        return viewHolder1;
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // Just as an example, return 0 or 2 depending on position
+        // Note that unlike in ListView adapters, types don't have to be contiguous
+        return position % 2 * 2;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+
         Data data = arrayList.get(position);
         holder.title.setText(data.getTitle());
-        //holder.message.setText(data.getMessage());
+        holder.message.setText(data.getMessage());
 //      holder.img.setImageResource(Integer.parseInt(data.getImage()));
 
         //Picasso.with(context).load(data.getImage()).into(holder.img);
@@ -72,11 +81,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.personName);
-            //message = itemView.findViewById(R.id.personEmail);
+            title = itemView.findViewById(R.id.personName1);
+            message = itemView.findViewById(R.id.personName2);
             img = itemView.findViewById(R.id.personImage);
 
 
         }
     }
+
 }
