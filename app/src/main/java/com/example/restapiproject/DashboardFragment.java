@@ -86,7 +86,7 @@ public class DashboardFragment extends Fragment {
 
         getActivity().setTitle("Dashboard");
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView1);
         arrayList = new ArrayList<>();
 
 
@@ -146,8 +146,8 @@ public class DashboardFragment extends Fragment {
                 for (Model.data data1 : data)
                 {
 
-                    Log.e("Dashboard Fragment",""+data1.getEmail());
-                    arrayList.add(new Data(data1.getFirst_name(),data1.getEmail(),data1.getAvatar()));
+                    Log.e("Person Name",""+data1.getFirst_name());
+                    arrayList.add(new Data(data1.getFirst_name(),data1.getAvatar()));
 
                 }
 

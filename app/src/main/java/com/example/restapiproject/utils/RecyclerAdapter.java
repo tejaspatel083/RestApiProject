@@ -1,6 +1,5 @@
 package com.example.restapiproject.utils;
 
-import android.app.LauncherActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.restapiproject.Models.Data;
 import com.example.restapiproject.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,7 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View inflate = layoutInflater.inflate(R.layout.recycleitem,null);
+        View inflate = layoutInflater.inflate(R.layout.recycleitem1,null);
 
         ViewHolder viewHolder = new ViewHolder(inflate);
 
@@ -47,7 +45,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         Data data = arrayList.get(position);
         holder.title.setText(data.getTitle());
-        holder.message.setText(data.getMessage());
+        //holder.message.setText(data.getMessage());
 //      holder.img.setImageResource(Integer.parseInt(data.getImage()));
 
         //Picasso.with(context).load(data.getImage()).into(holder.img);
@@ -75,7 +73,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             super(itemView);
 
             title = itemView.findViewById(R.id.personName);
-            message = itemView.findViewById(R.id.personEmail);
+            //message = itemView.findViewById(R.id.personEmail);
             img = itemView.findViewById(R.id.personImage);
 
 

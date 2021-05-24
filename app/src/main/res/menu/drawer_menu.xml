@@ -13,6 +13,18 @@
                     android:icon="@drawable/ic_dashboard_black_24dp"
 
                     />
+                <item
+                    android:id="@+id/Fullname"
+                    android:title="Fullname"
+                    android:icon="@drawable/ic_perm_identity_black_24dp"
+
+                    />
+                <item
+                    android:id="@+id/Email"
+                    android:title="Email"
+                    android:icon="@drawable/ic_email_black_24dp"
+
+                    />
             </group>
         </menu>
     </item>

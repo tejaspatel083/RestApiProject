@@ -10,4 +10,14 @@
         android:name="com.example.restapiproject.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/personFullNameFragment"
+        android:name="com.example.restapiproject.PersonFullNameFragment"
+        android:label="fragment_person_full_name"
+        tools:layout="@layout/fragment_person_full_name" />
+    <fragment
+        android:id="@+id/personEmailFragment"
+        android:name="com.example.restapiproject.PersonEmailFragment"
+        android:label="fragment_person_email"
+        tools:layout="@layout/fragment_person_email" />
 </navigation>
