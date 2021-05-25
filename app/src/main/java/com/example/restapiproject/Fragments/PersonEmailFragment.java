@@ -1,4 +1,4 @@
-package com.example.restapiproject;
+package com.example.restapiproject.Fragments;
 
 import android.os.Bundle;
 
@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.restapiproject.Models.Data;
 import com.example.restapiproject.Models.Model;
+import com.example.restapiproject.R;
 import com.example.restapiproject.utils.APIClient;
 import com.example.restapiproject.utils.APIInterface;
 import com.example.restapiproject.utils.RecyclerAdapter;
@@ -108,7 +109,7 @@ public class PersonEmailFragment extends Fragment {
                 {
 
                     Log.e("Person Name",""+data1.getFirst_name());
-                    arrayList.add(new Data(getString(R.string.pemail),data1.getEmail(),data1.getAvatar()));
+                    arrayList.add(new Data(data1.getFirst_name(),data1.getEmail(),data1.getAvatar()));
 
                 }
 

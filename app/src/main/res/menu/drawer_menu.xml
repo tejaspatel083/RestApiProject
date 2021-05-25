@@ -25,6 +25,13 @@
                     android:icon="@drawable/ic_email_black_24dp"
 
                     />
+
+                <item
+                    android:id="@+id/ID"
+                    android:title="ID"
+                    android:icon="@drawable/ic_assignment_ind_black_24dp"
+
+                    />
             </group>
         </menu>
     </item>

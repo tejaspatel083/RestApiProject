@@ -17,7 +17,12 @@
         tools:layout="@layout/fragment_person_full_name" />
     <fragment
         android:id="@+id/personEmailFragment"
-        android:name="com.example.restapiproject.PersonEmailFragment"
+        android:name="com.example.restapiproject.Fragments.PersonEmailFragment"
         android:label="fragment_person_email"
         tools:layout="@layout/fragment_person_email" />
+    <fragment
+        android:id="@+id/personIdFragment"
+        android:name="com.example.restapiproject.Fragments.PersonIdFragment"
+        android:label="fragment_person_id"
+        tools:layout="@layout/fragment_person_id" />
 </navigation>

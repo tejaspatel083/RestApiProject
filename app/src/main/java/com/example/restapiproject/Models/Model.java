@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Model {
 
     String page,per_page,total,total_pages;
-    ArrayList<data> data;
+    public ArrayList<Model.data> data;
 
     public class data
     {

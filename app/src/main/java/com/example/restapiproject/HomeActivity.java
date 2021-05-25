@@ -91,6 +91,11 @@ public class HomeActivity extends AppCompatActivity {
                         navController.navigate(R.id.personEmailFragment);
                         break;
 
+                    case R.id.ID :
+
+                        navController.navigate(R.id.personIdFragment);
+                        break;
+
 
                     case R.id.Logout :
 

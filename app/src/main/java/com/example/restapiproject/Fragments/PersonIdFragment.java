@@ -1,53 +1,36 @@
-package com.example.restapiproject;
+package com.example.restapiproject.Fragments;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.restapiproject.Models.Data;
 import com.example.restapiproject.Models.Model;
+import com.example.restapiproject.R;
 import com.example.restapiproject.utils.APIClient;
 import com.example.restapiproject.utils.APIInterface;
 import com.example.restapiproject.utils.RecyclerAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class DashboardFragment extends Fragment {
-
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    FirebaseFirestore firebaseFirestore;
-    TextView textView;
-
-    private NavController navController;
+public class PersonIdFragment extends Fragment {
 
     RecyclerView recyclerView;
 
@@ -61,68 +44,31 @@ public class DashboardFragment extends Fragment {
     private ArrayList<Data> arrayList;
 
 
-
-    public DashboardFragment() {
+    public PersonIdFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        return inflater.inflate(R.layout.fragment_person_id, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        getActivity().setTitle("Person ID");
 
-
-        getActivity().setTitle("Dashboard");
-        navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
-
-
-        recyclerView = view.findViewById(R.id.recyclerView1);
+        recyclerView = view.findViewById(R.id.recyclerView4);
         arrayList = new ArrayList<>();
-
-
-        NavigationView navigationView = getActivity().findViewById(R.id.nv);
-        View headerView = navigationView.getHeaderView(0);
-        textView = headerView.findViewById(R.id.headerTextView);
-
-
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
-
-        DocumentReference docRef = firebaseFirestore.collection("User Profile Information").document(firebaseUser.getUid());
-
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-
-                    if (doc.exists()) {
-                        Log.d("DashboardFragment", doc.getData().toString());
-
-                        textView.setText("Hello " + doc.get("name"));
-
-
-                    }
-
-                }
-            }
-        });
 
 
         recyclerView.setHasFixedSize(true);
@@ -153,7 +99,7 @@ public class DashboardFragment extends Fragment {
                 {
 
                     Log.e("Person Name",""+data1.getFirst_name());
-                    arrayList.add(new Data(getString(R.string.pname),data1.getFirst_name(),data1.getAvatar()));
+                    arrayList.add(new Data("ID: "+data1.getId(),data1.getFirst_name(),data1.getAvatar()));
 
                 }
 
@@ -161,10 +107,9 @@ public class DashboardFragment extends Fragment {
                     @Override
                     public void onItemClick(Data data) {
 
-                        showToast(data.getMessage());
+                        showToast(data.getTitle());
 
                     }
-
                 });
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -189,13 +134,10 @@ public class DashboardFragment extends Fragment {
 
             }
         });
-
-
     }
 
-    public void showToast(String message)
+    private void showToast(String message)
     {
-        Toast.makeText(getActivity(),message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
-
 }
