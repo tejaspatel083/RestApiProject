@@ -5,8 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -34,25 +32,27 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseFirestore firebaseFirestore;
     TextView textView;
 
-    private NavController navController;
-
     RecyclerView recyclerView;
 
     APIInterface apiInterface;
+    RecyclerAdapter recyclerAdapter;
+
+
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     private int currentPage = 1;
     private int totalPage = 2;
@@ -90,9 +90,9 @@ public class DashboardFragment extends Fragment {
 
 
         getActivity().setTitle("Dashboard");
-        navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
 
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         recyclerView = view.findViewById(R.id.recyclerView1);
         arrayList = new ArrayList<>();
 
@@ -125,10 +125,13 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        swipeRefreshLayout.setOnRefreshListener(this);
+
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
 
 
         makeApiCall();
@@ -158,7 +161,7 @@ public class DashboardFragment extends Fragment {
 
                 }
 
-                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
+                recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
                     @Override
                     public void onItemClick(Data data) {
 
@@ -170,6 +173,8 @@ public class DashboardFragment extends Fragment {
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerAdapter.notifyDataSetChanged();
+
+                swipeRefreshLayout.setRefreshing(false);
 
                 if (currentPage<=totalPage)
                 {
@@ -199,4 +204,14 @@ public class DashboardFragment extends Fragment {
         Toast.makeText(getActivity(),message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onRefresh() {
+
+        currentPage = 1;
+        isLastPage = false;
+        arrayList.clear();
+        recyclerAdapter.notifyDataSetChanged();
+        makeApiCall();
+
+    }
 }
