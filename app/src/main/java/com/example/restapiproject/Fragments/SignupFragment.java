@@ -1,4 +1,4 @@
-package com.example.restapiproject;
+package com.example.restapiproject.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.restapiproject.Models.UserInfo;
+import com.example.restapiproject.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;

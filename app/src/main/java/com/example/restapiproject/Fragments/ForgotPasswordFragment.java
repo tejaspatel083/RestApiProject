@@ -1,4 +1,4 @@
-package com.example.restapiproject;
+package com.example.restapiproject.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.restapiproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 

@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.restapiproject.DashboardFragment"
+        android:name="com.example.restapiproject.RestAPIFragments.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/personFullNameFragment"
-        android:name="com.example.restapiproject.PersonFullNameFragment"
+        android:name="com.example.restapiproject.RestAPIFragments.PersonFullNameFragment"
         android:label="fragment_person_full_name"
         tools:layout="@layout/fragment_person_full_name" />
     <fragment
         android:id="@+id/personEmailFragment"
-        android:name="com.example.restapiproject.Fragments.PersonEmailFragment"
+        android:name="com.example.restapiproject.RestAPIFragments.PersonEmailFragment"
         android:label="fragment_person_email"
         tools:layout="@layout/fragment_person_email" />
     <fragment
         android:id="@+id/personIdFragment"
-        android:name="com.example.restapiproject.Fragments.PersonIdFragment"
+        android:name="com.example.restapiproject.RestAPIFragments.PersonIdFragment"
         android:label="fragment_person_id"
         tools:layout="@layout/fragment_person_id" />
 </navigation>

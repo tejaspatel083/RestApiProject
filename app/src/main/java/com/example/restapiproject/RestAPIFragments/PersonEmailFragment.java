@@ -1,7 +1,5 @@
-package com.example.restapiproject.Fragments;
+package com.example.restapiproject.RestAPIFragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.restapiproject.Models.Data;
@@ -22,6 +21,9 @@ import com.example.restapiproject.R;
 import com.example.restapiproject.utils.APIClient;
 import com.example.restapiproject.utils.APIInterface;
 import com.example.restapiproject.utils.RecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -30,7 +32,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class PersonIdFragment extends Fragment {
+public class PersonEmailFragment extends Fragment {
+
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    FirebaseFirestore firebaseFirestore;
+    TextView textView;
 
     RecyclerView recyclerView;
 
@@ -44,30 +51,33 @@ public class PersonIdFragment extends Fragment {
     private ArrayList<Data> arrayList;
 
 
-    public PersonIdFragment() {
+    public PersonEmailFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_person_id, container, false);
+        return inflater.inflate(R.layout.fragment_person_email, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Person ID");
+        getActivity().setTitle("Person Email");
 
-        recyclerView = view.findViewById(R.id.recyclerView4);
+        recyclerView = view.findViewById(R.id.recyclerView3);
         arrayList = new ArrayList<>();
 
 
@@ -77,8 +87,8 @@ public class PersonIdFragment extends Fragment {
 
 
         makeApiCall();
-
     }
+
 
     private void makeApiCall() {
 
@@ -99,7 +109,7 @@ public class PersonIdFragment extends Fragment {
                 {
 
                     Log.e("Person Name",""+data1.getFirst_name());
-                    arrayList.add(new Data("ID: "+data1.getId(),data1.getFirst_name(),data1.getAvatar()));
+                    arrayList.add(new Data(data1.getFirst_name(),data1.getEmail(),data1.getAvatar()));
 
                 }
 
@@ -107,7 +117,7 @@ public class PersonIdFragment extends Fragment {
                     @Override
                     public void onItemClick(Data data) {
 
-                        showToast(data.getTitle());
+                        showToast(data.getMessage());
 
                     }
                 });
