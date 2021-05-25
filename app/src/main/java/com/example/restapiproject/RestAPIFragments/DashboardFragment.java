@@ -40,25 +40,14 @@ import retrofit2.Response;
 
 public class DashboardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    FirebaseFirestore firebaseFirestore;
-    TextView textView;
-
     RecyclerView recyclerView;
-
     APIInterface apiInterface;
     RecyclerAdapter recyclerAdapter;
-
-
     SwipeRefreshLayout swipeRefreshLayout;
-
 
     private int currentPage = 1;
     private int totalPage = 2;
-
     private boolean isLastPage = false;
-
     private ArrayList<Data> arrayList;
 
 
@@ -71,9 +60,6 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -95,35 +81,6 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         recyclerView = view.findViewById(R.id.recyclerView1);
         arrayList = new ArrayList<>();
-
-
-        NavigationView navigationView = getActivity().findViewById(R.id.nv);
-        View headerView = navigationView.getHeaderView(0);
-        textView = headerView.findViewById(R.id.headerTextView);
-
-
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
-
-        DocumentReference docRef = firebaseFirestore.collection("User Profile Information").document(firebaseUser.getUid());
-
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-
-                    if (doc.exists()) {
-                        Log.d("DashboardFragment", doc.getData().toString());
-
-                        textView.setText("Hello " + doc.get("name"));
-
-
-                    }
-
-                }
-            }
-        });
 
         swipeRefreshLayout.setOnRefreshListener(this);
 

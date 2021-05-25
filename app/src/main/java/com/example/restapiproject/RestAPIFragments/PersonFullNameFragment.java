@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,22 +33,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class PersonFullNameFragment extends Fragment {
+public class PersonFullNameFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    FirebaseFirestore firebaseFirestore;
-    TextView textView;
 
     RecyclerView recyclerView;
-
+    SwipeRefreshLayout swipeRefreshLayout;
+    RecyclerAdapter recyclerAdapter;
     APIInterface apiInterface;
 
     private int currentPage = 1;
     private int totalPage = 2;
-
     private boolean isLastPage = false;
-
     private ArrayList<Data> arrayList;
 
     public PersonFullNameFragment() {
@@ -58,9 +54,6 @@ public class PersonFullNameFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
 
@@ -77,9 +70,13 @@ public class PersonFullNameFragment extends Fragment {
 
         getActivity().setTitle("Person FullName");
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh2);
+
         recyclerView = view.findViewById(R.id.recyclerView2);
         arrayList = new ArrayList<>();
 
+
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -114,7 +111,7 @@ public class PersonFullNameFragment extends Fragment {
 
                 }
 
-                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
+                recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
                     @Override
                     public void onItemClick(Data data) {
 
@@ -125,6 +122,8 @@ public class PersonFullNameFragment extends Fragment {
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerAdapter.notifyDataSetChanged();
+
+                swipeRefreshLayout.setRefreshing(false);
 
                 if (currentPage<=totalPage)
                 {
@@ -150,5 +149,15 @@ public class PersonFullNameFragment extends Fragment {
     private void showToast(String message)
     {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRefresh() {
+        currentPage = 1;
+        isLastPage = false;
+        arrayList.clear();
+        recyclerAdapter.notifyDataSetChanged();
+        makeApiCall();
+
     }
 }

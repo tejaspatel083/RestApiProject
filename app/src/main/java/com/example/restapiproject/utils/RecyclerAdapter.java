@@ -1,6 +1,7 @@
 package com.example.restapiproject.utils;
 
 import android.content.Context;
+import android.graphics.Movie;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,9 @@ import com.example.restapiproject.Models.Data;
 import com.example.restapiproject.R;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -52,9 +56,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Data data = arrayList.get(position);
         holder.title.setText(data.getTitle());
         holder.message.setText(data.getMessage());
-//      holder.img.setImageResource(Integer.parseInt(data.getImage()));
-
-        //Picasso.with(context).load(data.getImage()).into(holder.img);
 
         Glide.with(context).load(data.getImage()).fitCenter()
                 .into(holder.img);
@@ -74,19 +75,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.personName1)
         TextView title;
+        @BindView(R.id.personName2)
         TextView message;
+        @BindView(R.id.personImage)
         ImageView img;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.personName1);
-            message = itemView.findViewById(R.id.personName2);
-            img = itemView.findViewById(R.id.personImage);
+            ButterKnife.bind(this,itemView);
+
+//            title = itemView.findViewById(R.id.personName1);
+//            message = itemView.findViewById(R.id.personName2);
+//            img = itemView.findViewById(R.id.personImage);
 
 
         }
+
     }
 
 

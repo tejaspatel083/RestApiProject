@@ -28,14 +28,34 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class LoginFragment extends Fragment {
 
 
-    private Button btnLogin;
-    private TextView txtForgotPassword,txtSignup;
-    private EditText pwd,emailId;
-    private TextView v1,iv1;
+    @BindView(R.id.MainLoginBtn)
+    Button btnLogin;
+
+    @BindView(R.id.MainForgotPassword)
+    TextView txtForgotPassword;
+
+    @BindView(R.id.MainSignup)
+    TextView txtSignup;
+
+    @BindView(R.id.MainEmail)
+    EditText emailId;
+
+    @BindView(R.id.MainPassword)
+    EditText pwd;
+
+    @BindView(R.id.visible)
+    TextView v1;
+
+    @BindView(R.id.notvisible)
+    TextView iv1;
+
     private FirebaseAuth firebaseAuth;
 
 
@@ -62,13 +82,15 @@ public class LoginFragment extends Fragment {
 
         getActivity().setTitle("Login");
 
-        btnLogin = view.findViewById(R.id.MainLoginBtn);
-        txtForgotPassword = view.findViewById(R.id.MainForgotPassword);
-        txtSignup = view.findViewById(R.id.MainSignup);
-        pwd = view.findViewById(R.id.MainPassword);
-        emailId = view.findViewById(R.id.MainEmail);
-        v1 = view.findViewById(R.id.visible);
-        iv1 = view.findViewById(R.id.notvisible);
+        ButterKnife.bind(this,view);
+
+//        btnLogin = view.findViewById(R.id.MainLoginBtn);
+//        txtForgotPassword = view.findViewById(R.id.MainForgotPassword);
+//        txtSignup = view.findViewById(R.id.MainSignup);
+//        pwd = view.findViewById(R.id.MainPassword);
+//        emailId = view.findViewById(R.id.MainEmail);
+//        v1 = view.findViewById(R.id.visible);
+//        iv1 = view.findViewById(R.id.notvisible);
 
 
         firebaseAuth = FirebaseAuth.getInstance();

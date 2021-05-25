@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,17 +31,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class PersonIdFragment extends Fragment {
+public class PersonIdFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
+
+    SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
-
+    RecyclerAdapter recyclerAdapter;
     APIInterface apiInterface;
 
     private int currentPage = 1;
     private int totalPage = 2;
-
     private boolean isLastPage = false;
-
     private ArrayList<Data> arrayList;
 
 
@@ -67,9 +68,13 @@ public class PersonIdFragment extends Fragment {
 
         getActivity().setTitle("Person ID");
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh4);
+
         recyclerView = view.findViewById(R.id.recyclerView4);
         arrayList = new ArrayList<>();
 
+
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -103,7 +108,7 @@ public class PersonIdFragment extends Fragment {
 
                 }
 
-                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
+                recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
                     @Override
                     public void onItemClick(Data data) {
 
@@ -114,6 +119,8 @@ public class PersonIdFragment extends Fragment {
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerAdapter.notifyDataSetChanged();
+
+                swipeRefreshLayout.setRefreshing(false);
 
                 if (currentPage<=totalPage)
                 {
@@ -139,5 +146,15 @@ public class PersonIdFragment extends Fragment {
     private void showToast(String message)
     {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRefresh() {
+        currentPage = 1;
+        isLastPage = false;
+        arrayList.clear();
+        recyclerAdapter.notifyDataSetChanged();
+        makeApiCall();
+
     }
 }

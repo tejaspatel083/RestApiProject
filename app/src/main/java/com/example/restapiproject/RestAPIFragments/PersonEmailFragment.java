@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,22 +33,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class PersonEmailFragment extends Fragment {
-
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    FirebaseFirestore firebaseFirestore;
-    TextView textView;
+public class PersonEmailFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView recyclerView;
-
+    SwipeRefreshLayout swipeRefreshLayout;
+    RecyclerAdapter recyclerAdapter;
     APIInterface apiInterface;
 
     private int currentPage = 1;
     private int totalPage = 2;
-
     private boolean isLastPage = false;
-
     private ArrayList<Data> arrayList;
 
 
@@ -59,9 +54,6 @@ public class PersonEmailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -77,8 +69,12 @@ public class PersonEmailFragment extends Fragment {
 
         getActivity().setTitle("Person Email");
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh3);
+
         recyclerView = view.findViewById(R.id.recyclerView3);
         arrayList = new ArrayList<>();
+
+        swipeRefreshLayout.setOnRefreshListener(this);
 
 
         recyclerView.setHasFixedSize(true);
@@ -113,7 +109,7 @@ public class PersonEmailFragment extends Fragment {
 
                 }
 
-                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
+                recyclerAdapter = new RecyclerAdapter(arrayList, getContext(), new RecyclerAdapter.ItemClickListner() {
                     @Override
                     public void onItemClick(Data data) {
 
@@ -124,6 +120,8 @@ public class PersonEmailFragment extends Fragment {
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerAdapter.notifyDataSetChanged();
+
+                swipeRefreshLayout.setRefreshing(false);
 
                 if (currentPage<=totalPage)
                 {
@@ -149,5 +147,15 @@ public class PersonEmailFragment extends Fragment {
     private void showToast(String message)
     {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRefresh() {
+        currentPage = 1;
+        isLastPage = false;
+        arrayList.clear();
+        recyclerAdapter.notifyDataSetChanged();
+        makeApiCall();
+
     }
 }

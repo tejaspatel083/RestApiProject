@@ -31,19 +31,42 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class SignupFragment extends Fragment {
 
 
-    private Button btnSignup;
-    private TextView txtLogin;
+    @BindView(R.id.CreateBtn)
+    Button btnSignup;
 
-    private EditText user_pwd1,user_pwd2,user_name,user_email;
-    private TextView v1,v2,iv1,iv2;
+    @BindView(R.id.LoginText)
+    TextView txtLogin;
+
+    @BindView(R.id.CreatePassword)
+    EditText user_pwd1;
+
+    @BindView(R.id.CreateRePassword)
+    EditText user_pwd2;
+
+    @BindView(R.id.CreateName)
+    EditText user_name;
+
+    @BindView(R.id.CreateEmail)
+    EditText user_email;
+
+    @BindView(R.id.visible1)
+    TextView v1;
+    @BindView(R.id.notvisible1)
+    TextView v2;
+    @BindView(R.id.visible2)
+    TextView iv1;
+    @BindView(R.id.notvisible2)
+    TextView iv2;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
-
     private NavController navController;
 
 
@@ -60,14 +83,16 @@ public class SignupFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_signup,container,false);
         getActivity().setTitle("Signup");
+        ButterKnife.bind(this,view);
 
-        btnSignup = view.findViewById(R.id.CreateBtn);
-        txtLogin = view.findViewById(R.id.LoginText);
 
-        user_email = view.findViewById(R.id.CreateEmail);
-        user_name = view.findViewById(R.id.CreateName);
-        user_pwd1 = view.findViewById(R.id.CreatePassword);
-        user_pwd2 = view.findViewById(R.id.CreateRePassword);
+//        btnSignup = view.findViewById(R.id.CreateBtn);
+//        txtLogin = view.findViewById(R.id.LoginText);
+//
+//        user_email = view.findViewById(R.id.CreateEmail);
+//        user_name = view.findViewById(R.id.CreateName);
+//        user_pwd1 = view.findViewById(R.id.CreatePassword);
+//        user_pwd2 = view.findViewById(R.id.CreateRePassword);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -76,10 +101,10 @@ public class SignupFragment extends Fragment {
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment);
 
 
-        v1 = view.findViewById(R.id.visible1);
-        iv1 = view.findViewById(R.id.notvisible1);
-        v2 = view.findViewById(R.id.visible2);
-        iv2 = view.findViewById(R.id.notvisible2);
+//        v1 = view.findViewById(R.id.visible1);
+//        iv1 = view.findViewById(R.id.notvisible1);
+//        v2 = view.findViewById(R.id.visible2);
+//        iv2 = view.findViewById(R.id.notvisible2);
 
         v1.setOnClickListener(new View.OnClickListener() {
             @Override
